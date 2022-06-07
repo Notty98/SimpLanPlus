@@ -21,7 +21,6 @@ public class STentryFunction extends STentry{
     }
 
     public void addArg(FunctionArg arg) {
-        System.out.println("adding");
         this.listType.add(arg);
     }
 

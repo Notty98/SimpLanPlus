@@ -143,7 +143,6 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
         this.symbolTable.addDecl(name, type.getType(), ctx.getStart().getLine());
         if(ctx.exp() != null) {
             Type typeExp = visit(ctx.exp());
-            System.out.println(name +" "+ typeExp.getType());
             if(!type.getType().equals(typeExp.getType())) {
                 this.typeErrors.add("line " + ctx.getStart().getLine() + ": the variable " + name + " is declared " + type.getType());
             }
@@ -166,7 +165,6 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
         String name = ctx.ID().getText();
         String varType = this.symbolTable.lookup(name);
         if(varType != null && !type.getType().equals(varType)) {
-            System.out.println(name + " " + varType);
             this.typeErrors.add("line " + ctx.getStart().getLine() + ": the variable " + name + " is declared " + varType);
         }
         return new VoidType();
@@ -258,7 +256,6 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
             Type leftType = visit(ctx.left);
             Type right = visit(ctx.right);
             if(!(leftType.getType().equals("int") && right.getType().equals("int"))) {
-                System.out.println("line " + ctx.getStart().getLine() + ": the operator " + textOp + " needs two int");
                 this.typeErrors.add("line " + ctx.getStart().getLine() + ": the operator " + textOp + " needs two int");
             }
             return new BoolType();
@@ -276,7 +273,6 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
     @Override
     public Type visitIte(SimpLanPlusParser.IteContext ctx) {
         Type exp = visit(ctx.exp());
-        System.out.println("IT: " + exp);
         if(!exp.getType().equals("bool")) {
             this.typeErrors.add("line " + ctx.getStart().getLine() + ": the condition of if must be a bool!");
         }

@@ -551,7 +551,6 @@ public class VisitorCodeGen extends SimpLanPlusBaseVisitor<String> {
     }
 
     public String pushVarAddress(SimpLanPlusParser.DerExpContext ctx) {
-        System.out.println("push arg!!");
         String name = ctx.ID().getText();
         Type type = this.sTable.getVariableType(name);
         StringBuilder code = new StringBuilder("move $al $fp\n");

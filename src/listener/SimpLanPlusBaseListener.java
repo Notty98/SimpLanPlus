@@ -48,7 +48,6 @@ public class SimpLanPlusBaseListener implements SimpLanPlusListener {
 			}
 		}
 		this.argsToPush = null;
-		symbolTable.printTableState();
 	}
 	/**
 	 * {@inheritDoc}
@@ -56,7 +55,7 @@ public class SimpLanPlusBaseListener implements SimpLanPlusListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBlock(SimpLanPlusParser.BlockContext ctx) {
-		symbolTable.printTableState(); symbolTable.exitScope();
+		symbolTable.exitScope();
 	}
 	/**
 	 * {@inheritDoc}

@@ -97,7 +97,6 @@ public class STable {
     }
 
     public void insertArg(String name, FunctionArg arg) {
-        System.out.println(name);
         int index = this.stable.size() - 1;
         while(index >= 0) {
             LinkedHashMap<String, STentry> env = this.stable.get(index);
@@ -131,7 +130,6 @@ public class STable {
             LinkedHashMap<String, STentry> env = this.stable.get(index);
             for(String key: env.keySet()) {
                 if(Objects.equals(key, name) && env.get(key) instanceof STentryFunction) {
-                    System.out.println("here");
                     return ((STentryFunction) env.get(key)).getIsVarByIndex(i);
                 }
             }

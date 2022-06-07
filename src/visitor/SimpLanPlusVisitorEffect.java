@@ -104,6 +104,8 @@ public class SimpLanPlusVisitorEffect extends SimpLanPlusBaseVisitor<Object> {
                 FunctionVar functionVar = fun.getArgs().get(fun.searchByIndex(i));
                 if(functionVar.isVar()) {
                     this.environment.setNewState(var, functionVar.getState());
+                } else {
+                    visit(ctx.exp(i));
                 }
             } else {
                 visit(ctx.exp(i));

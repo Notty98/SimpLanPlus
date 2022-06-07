@@ -104,7 +104,7 @@ public class Main {
                 for (String error: errors) {
                     System.out.println("\t" + error);
                 }
-                //return;
+                return;
             }
 
             VisitorCodeGen visitorCodeGen = new VisitorCodeGen();
