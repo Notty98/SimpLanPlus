@@ -127,10 +127,10 @@ public class VisitorCodeGen extends SimpLanPlusBaseVisitor<String> {
                 String bytecodeDec = visit(ctx.block().declaration(i).decVar());
                 code.append(bytecodeDec);
             }
-            /*if(ctx.declaration(i).decFun() != null) {
-                String bytecodeDec = visit(ctx.declaration(i).decFun());
+            if(ctx.block().declaration(i).decFun() != null) {
+                String bytecodeDec = visit(ctx.block().declaration(i).decFun());
                 code.append(bytecodeDec);
-            }*/
+            }
         }
         //push al ($t2)
         code.append("""
