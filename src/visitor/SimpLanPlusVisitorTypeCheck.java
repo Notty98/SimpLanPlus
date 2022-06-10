@@ -20,6 +20,7 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
     private ArrayList<HashMap<String, String>> argToPush = null;
     private ArrayList<String> typeErrors = null;
     private Logger logger;
+    private String functionName = null;
 
     public SimpLanPlusVisitorTypeCheck(Logger logger) {
         this.symbolTable = new SymbolTable();
@@ -60,7 +61,6 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
         }
         this.symbolTable.exitScope();
         return new VoidType();
-        //return super.visitBlock(ctx);
     }
 
     @Override
@@ -88,15 +88,25 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
             this.argToPush.add(arg);
         }
         this.symbolTable.addDecl(ctx.ID().getText(), type.getType(), this.argToPush, ctx.getStart().getLine());
-        return visit(ctx.block());
+        this.functionName = ctx.ID().getText();
+        Type returnType = visit(ctx.block());
+        this.functionName = null;
+        return returnType;
     }
 
     @Override
     public Type visitRet(SimpLanPlusParser.RetContext ctx) {
+        String functionType = this.symbolTable.lookup(this.functionName);
+        Type typeExp;
         if(ctx.exp() != null) {
-            return visit(ctx.exp());
+            typeExp =  visit(ctx.exp());
+        } else {
+            typeExp = new VoidType();
         }
-        return new VoidType();
+        if(!Objects.equals(typeExp.getType(), functionType)) {
+            this.typeErrors.add("line " + ctx.getStart().getLine() + ": the type of function " + this.functionName + " doesn't match with the type of expression inside the return statement");
+        }
+        return typeExp;
     }
 
     @Override
@@ -132,7 +142,6 @@ public class SimpLanPlusVisitorTypeCheck extends SimpLanPlusBaseVisitor<Type>{
             } else {
                 return new VoidType();
             }
-
         }
     }
 

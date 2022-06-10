@@ -1,7 +1,7 @@
-{
-int u;
-void f(var int x, int n){
-	if (n == 0) { print(x) ; }
-	else { int y = x * n ; f(y,n-1) ; }
-}
-f(u,6) ;}
+{ int a; int b; int c ;
+     void f(int n, var int x){
+          x = n ;
+          return ;
+     }
+     f(1,a) ; f(2,b) ; f(3,c) ;
+   }

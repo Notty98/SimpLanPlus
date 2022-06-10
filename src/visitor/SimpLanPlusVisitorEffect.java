@@ -58,9 +58,9 @@ public class SimpLanPlusVisitorEffect extends SimpLanPlusBaseVisitor<Object> {
             if(status.getState() == Status.States.Bot || status.getState() == Status.States.Init) {
                 this.effectErrors.add("line " + ctx.getStart().getLine() + ": Warning the variable " + id + " is declared but never used");
             }
-            if(status.getState() == Status.States.Top) {
+            /*if(status.getState() == Status.States.Top) {
                 this.effectErrors.add("line " + ctx.getStart().getLine() + ": Attention invalid status (top) for the variable " + id);
-            }
+            }*/
         }
         if(funVisited != null) {
             this.environment.updateFunctionEnv(funVisited, oldEnv);
@@ -137,6 +137,9 @@ public class SimpLanPlusVisitorEffect extends SimpLanPlusBaseVisitor<Object> {
 
     @Override
     public Status.States visitDerExp(SimpLanPlusParser.DerExpContext ctx) {
+        if(this.environment.getState(ctx.ID().getText()) == Status.States.Bot) {
+            this.effectErrors.add("line " + ctx.getStart().getLine() + ": Attention the variable " + ctx.ID().getText() + " is not initialized");
+        }
         this.environment.update(ctx.ID().getText(), Status.States.RW);
         return this.environment.getState(ctx.ID().getText());
     }
