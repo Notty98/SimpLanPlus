@@ -1,5 +1,7 @@
 # SimpLanPlus
 
+Progetto di Compilatori e Interpreti 2021/22.
+
 ## Report
 
 La cartella report contiene:
@@ -23,3 +25,7 @@ nella directory ```src/output```
 Se non si riesce a eseguire il programma:
 1. ```File > Project Structure > Project```, verificare il path del ```compiler output```
 2. ```File > Invalidate Caches```, spuntare le prime due voci e poi selezionare  ```invalidate and restart```
+
+## Autori
+* Stefano Notari
+* Francesco Santilli
